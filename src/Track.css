@@ -1,0 +1,52 @@
+.track-item{
+  text-align: center; 
+  border-radius: 5px;
+  background-color: #FFF;
+  box-shadow: 0 0 15px rgba(0, 0, 0, .2);
+  transition: .3s;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.track-item:hover{
+  box-shadow: 0 0 50px rgba(0, 0, 0, .2);
+  transform: translate3d(0,-10px,0)
+}
+
+.track-name {
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 18px;
+  color: #090b11;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  padding: 0 15px;
+}
+
+.track-artist {
+  font-size: 14px;
+  color: #666;
+}
+
+.track-player {
+  opacity: 0;
+  position: absolute;
+  background-color: rgba(250, 128, 114, 0.9);
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  color: #FFF;
+  font-size: 48px;
+  transition: .3s;
+}
+
+.track-item:hover .track-player {
+  opacity: 1;
+}

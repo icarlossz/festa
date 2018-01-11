@@ -1,0 +1,35 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  background-color: #e64f4f;
+  color: #FFF;
+  padding: 0 40px;
+  align-items: center;
+}
+
+.navbar-title{
+  text-transform: uppercase;
+}
+
+.navbar-search{
+  background-color: rgba(255, 255, 255, .1);
+  border: 1px solid rgba(255, 255, 255, .3);
+  border-radius: 5px;
+  padding: 10px 30px;
+  outline: none;
+  color: #FFF;
+  font-family: 'Josefin Sans', sans-serif;
+}
+
+.navbar-search::-webkit-input-placeholder{
+  color: rgba(255, 255, 255, 0.726);
+}
+
+@media screen and (max-width: 776px) {
+  .navbar {
+    padding: 0 20px;
+  }
+  .navbar-search {
+    padding: 10px 20px;
+  }
+}

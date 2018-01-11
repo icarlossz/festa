@@ -1,42 +1,13 @@
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  background-color: #090b11;
-  color: #FFF;
-  padding: 0 40px;
-  align-items: center;
-}
-
-.navbar-title{
-  text-transform: uppercase;
-}
-
-.navbar-search{
-  background-color: rgba(255, 255, 255, .1);
-  border: 1px solid rgba(255, 255, 255, .1);
-  border-radius: 5px;
-  padding: 10px 20px;
-  outline: none;
-  color: #FFF;
-  font-family: 'Josefin Sans', sans-serif;
-}
-
 .track-container{
   display: flex;
   width: 90%;
-  margin: 0 auto;
+  margin: 30px auto;
   justify-content: center;
   flex-wrap: wrap;
 }
 
 .track-item, .track-loader{
-  border-radius: 5px;
   width: 300px;
   height: 400px;
-  background-color: #ccc;
-  margin: 10px;
-}
-
-.track-loader {
-  
+  margin: 20px 15px;
 }

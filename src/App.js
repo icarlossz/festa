@@ -1,58 +1,70 @@
 import React, { Component } from 'react';
-import ContentLoader from "react-content-loader"
+import { Track, TrackLoader } from "./Track";
+import Navbar from "./Navbar";
 import './App.css';
-
-const MyLoader = () => (
-  <ContentLoader
-    height={400}
-    width={300}
-    speed={2}
-    primaryColor={"#f3f3f3"}
-    secondaryColor={"#ecebeb"}
-    className={'track-item'}
-  >
-    <rect x="0" y="0"  width="300" height="400" />
-  </ContentLoader>
-)
 
 class App extends Component {
   constructor(props){
     super(props)
-    this.state = {
-      data: null
-    }
+
+    this.state = { data: null, search: '' }
   }
 
-  fetchData = () => {
-    fetch('https://platzi-music-api.now.sh/users/yupiter01/playlists/0bIBXPHexHTJepMwuH2vi7/tracks')
-      .then(res => {
-        res = res.json().then(data => {
-          this.setState({data})
+  fetchData = (search) => {
+    const baseURL = "https://platzi-music-api.now.sh"
+    const patito = search
+      ? `search?q=${search}&type=track`
+      : 'users/yupiter01/playlists/0bIBXPHexHTJepMwuH2vi7/tracks'
+    
+    fetch(`${baseURL}/${patito}`)
+      .then(res => res.json())
+      .then(data => {
+        this.setState({ 
+          data: search
+            ? data.tracks.items
+            : data.items.map(({ track }) => track)
         })
       })
   }
+
+  handleSearchValue = ({ target }) => {
+    this.setState({ search: target.value })
+  }
+
+  handleSearchGo = ({ key }) => {
+    if (key === 'Enter') {
+      this.setState({ data: null })
+      this.fetchData(this.state.search)
+    }
+  } 
 
   componentDidMount() {
     this.fetchData()
   }
 
   render() {
-    console.log(this.state)
+    const { data, search } = this.state
+    console.log(search)
+    
     return (
       <div className="App">
-        <nav className="navbar">
-          <h3 className="navbar-title">Festa</h3>
-          <input className="navbar-search" type="text" placeholder="Search..."/>
-          <p className="navbar-user">O</p>
-        </nav>
+        <Navbar
+          value={search}
+          onChange={this.handleSearchValue}
+          onSubmit={this.handleSearchGo}
+        />
+
         <div className="track-container">
-          { !this.state.data && (
+          {data
+            ? data.map(track => <Track key={track.id} {...track} />)
+            : (
             <React.Fragment>
-              <MyLoader />
-              <MyLoader />
-              <MyLoader />
+              <TrackLoader />
+              <TrackLoader />
+              <TrackLoader />
+              <TrackLoader />
             </React.Fragment>
-          ) }
+          )}
         </div>
         
       </div>
