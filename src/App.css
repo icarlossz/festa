@@ -1,9 +1,10 @@
 .track-container{
   display: flex;
   width: 90%;
-  margin: 30px auto;
+  margin: 0 auto;
   justify-content: center;
   flex-wrap: wrap;
+  padding: 70px 0;
 }
 
 .track-item, .track-loader{

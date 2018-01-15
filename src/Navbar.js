@@ -14,7 +14,14 @@ class Navbar extends React.Component {
           onChange={(ev) => this.props.onChange(ev)}
           onKeyPress={(ev) => this.props.onSubmit(ev)}
         />
-        <p className="navbar-user">☰</p>
+        <a
+          href="https://github.com/icarlossz/festa"
+          rel="noopener noreferrer"
+          className="navbar-github"
+          target="_blank"
+        >
+          <i className="fab fa-github"></i>
+        </a>
       </nav>
     )
   }
