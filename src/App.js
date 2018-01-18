@@ -13,7 +13,7 @@ class App extends Component {
       search: '',
       playerIsPlaying: false,
       playerActiveTrack: {
-        name: 'Eleonor',
+        name: 'Szzz',
         artist: 'Artista de prueba',
         src: 'https://p.scdn.co/mp3-preview/0c58b32cdd0231ce4dc3cc2fe63a71046fd9f586?cid=555776939cf64ea6b39915cf4d5d875d',
       },
@@ -23,11 +23,11 @@ class App extends Component {
 
   fetchData = search => {
     const baseURL = "https://platzi-music-api.now.sh"
-    const patito = search
+    const busqueda = search
       ? `search?q=${search}&type=track`
       : 'users/yupiter01/playlists/0bIBXPHexHTJepMwuH2vi7/tracks'
     
-    fetch(`${baseURL}/${patito}`)
+    fetch(`${baseURL}/${busqueda}`)
       .then(res => res.json())
       .then(data => {
         this.setState({ 
@@ -63,7 +63,6 @@ class App extends Component {
   playerTrackOn = newTrack => {
     this.setState({ playerActiveTrack: newTrack })
   }
-  
 
   componentDidMount() {
     this.fetchData()
@@ -89,7 +88,12 @@ class App extends Component {
 
         <section className="track-container">
           {data
-            ? data.map(track => <Track key={track.id} {...track} />)
+            ? data.map(track =>
+              <Track
+                key={track.id}
+                {...track} 
+                updateTrack={this.playerTrackOn}
+              />)
             : Array(4)
               .fill(undefined)
               .map((_, i) => i)

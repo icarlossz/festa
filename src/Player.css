@@ -1,0 +1,59 @@
+.player-container{
+  background-color: #FFF;
+  color: tomato;
+  box-shadow: 0 10px 30px;
+  position: fixed;
+  width: 100%;
+  z-index: 3;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  text-align: center;
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 30px;
+  align-items: center;
+}
+
+.player-button{
+  width: 36px;
+  background-color: transparent;
+  color: tomato;
+  border: 0;
+  outline: none;
+  cursor: pointer;
+}
+
+.player-button:hover{
+  transform:scale(1.15);
+}
+
+.player-title, .player-artist{
+  margin: 0;
+}
+
+.player-title{
+  font-size: 22px;
+  padding-bottom: 5px;
+}
+
+.player-artist{
+  font-weight: 300;
+}
+
+.sb-soundplayer-progress-inner{
+  height: 5px;
+  position: absolute;
+  top: -5px;
+  left: 0;
+  right: 0;
+  background: rgba(255, 99, 71, 0.9);
+  transition: width 1s;
+}
+
+.sb-soundplayer-progress-container{
+  position: absolute;
+  top: 0px;
+  left: 0;
+  right: 0;
+}
