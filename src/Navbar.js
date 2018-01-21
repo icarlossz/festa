@@ -3,9 +3,11 @@ import './Navbar.css';
 
 class Navbar extends React.Component {
   render() {
-    return(
+    return (
       <nav className="navbar">
-        <h3 className="navbar-title"><span>🎉</span> FESTA</h3>
+        <h3 className="navbar-title">
+          <span role="img" aria-labelledby="Party">🎉</span> FESTA
+        </h3>
         <input
           type="text"
           value={this.props.value}

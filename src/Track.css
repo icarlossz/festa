@@ -48,9 +48,19 @@
 }
 
 .track-item:hover .track-player,
-.track-item.active .track-player {
+.track-player[active=true] {
   opacity: 1;
 }
+
+.track-player[active=true] {
+  background-color: rgba(10, 167, 167, 0.9);
+}
+
+.track-player .sb-soundplayer-icon {
+  color: inherit !important;
+  width: 60px;
+}
+
 
 .track-player svg:hover{
   font-size: 120px;
