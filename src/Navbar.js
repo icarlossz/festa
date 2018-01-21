@@ -5,7 +5,7 @@ class Navbar extends React.Component {
   render() {
     return(
       <nav className="navbar">
-        <h3 className="navbar-title">Festa</h3>
+        <h3 className="navbar-title"><span>🎉</span> FESTA</h3>
         <input
           type="text"
           value={this.props.value}

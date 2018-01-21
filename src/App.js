@@ -1,3 +1,15 @@
+/* 
+  - Cambiar absolutamente todo, pasar el HOC de Player
+    a este archivo para que se pueda manipular el player
+    desde cualquier parte de la Aplicacion.
+  - Pensar como hacerlo
+  - Pensar como calmar a Carlos
+  - Arreglarselas para pasar el streamUrl y todas las
+    otras props desde index o algo asi, pero app no
+    se puede dar props a si mismo :P
+ */
+
+
 import React, { Fragment, Component } from 'react';
 import { Track, TrackLoader } from "./Track";
 import Navbar from "./Navbar";
@@ -11,34 +23,18 @@ class App extends Component {
     this.state = {
       data: null,
       search: '',
+      player: null,
       playerIsPlaying: false,
-      playerActiveTrack: {
-        name: 'Szzz',
-        artist: 'Artista de prueba',
-        src: 'https://p.scdn.co/mp3-preview/0c58b32cdd0231ce4dc3cc2fe63a71046fd9f586?cid=555776939cf64ea6b39915cf4d5d875d',
-      },
-      // playerActiveTrack: null,
+      playerActiveTrack: {},
+      // playerActiveTrack: {
+      //   name: 'Nombre del famoso conchudo',
+      //   artist: 'Artista en prueba',
+      //   streamUrl: 'https://p.scdn.co/mp3-preview/0c58b32cdd0231ce4dc3cc2fe63a71046fd9f586?cid=555776939cf64ea6b39915cf4d5d875d',
+      // },
     }
   }
 
-  fetchData = search => {
-    const baseURL = "https://platzi-music-api.now.sh"
-    const busqueda = search
-      ? `search?q=${search}&type=track`
-      : 'users/yupiter01/playlists/0bIBXPHexHTJepMwuH2vi7/tracks'
-    
-    fetch(`${baseURL}/${busqueda}`)
-      .then(res => res.json())
-      .then(data => {
-        this.setState({ 
-          data: search
-            ? data.tracks.items
-            : data.items.map(({ track }) => track)
-        })
-      })
-  }
 
-  
   // Search Methods
   searchHandleValue = ({ target }) => {
     this.setState({ search: target.value })
@@ -53,15 +49,54 @@ class App extends Component {
 
 
   // Player Methods
-  playerTogglePlay = element => {
-    const { isPlaying } = this.state
-    // isPlaying ? element.play() : element.pause()
-    this.setState({ playerIsPlaying: !isPlaying })
-    return !isPlaying
+  playerTogglePlay = player => {
+    this.setState(({ playerIsPlaying }) => {
+      this.playerSetPlayer(player)
+      if (playerIsPlaying) player.pause()
+      if (!playerIsPlaying) player.play()
+      
+      return { playerIsPlaying: !playerIsPlaying }
+    })
   }
 
   playerTrackOn = newTrack => {
-    this.setState({ playerActiveTrack: newTrack })
+    this.setState(({ player }) => {
+      console.log('Song changed')
+      this.playerSetPlayer()
+      if (player) {
+        player.play(newTrack)
+
+        return {
+          playerActiveTrack: newTrack,
+          playerIsPlaying: false,
+        }
+      }
+
+      return { playerActiveTrack: newTrack }
+    })
+  }
+
+  playerSetPlayer = player => {
+    this.setState(() => ({ player }))
+  }
+
+  
+  // Fetch Methods
+  fetchData = search => {
+    const baseURL = "https://platzi-music-api.now.sh"
+    const busqueda = search
+      ? `search?q=${search}&type=track`
+      : 'users/yupiter01/playlists/0bIBXPHexHTJepMwuH2vi7/tracks'
+
+    fetch(`${baseURL}/${busqueda}`)
+      .then(res => res.json())
+      .then(data => {
+        this.setState({
+          data: search
+            ? data.tracks.items
+            : data.items.map(({ track }) => track)
+        })
+      })
   }
 
   componentDidMount() {
@@ -75,8 +110,6 @@ class App extends Component {
       playerIsPlaying,
       playerActiveTrack,
     } = this.state
-    console.log(`Search: ${search}`)
-    console.log(`Playing: ${playerIsPlaying}`)
     
     return (
       <Fragment>
@@ -91,7 +124,8 @@ class App extends Component {
             ? data.map(track =>
               <Track
                 key={track.id}
-                {...track} 
+                {...track}
+                activeTrack={playerActiveTrack.name}
                 updateTrack={this.playerTrackOn}
               />)
             : Array(4)
@@ -101,16 +135,16 @@ class App extends Component {
           }
         </section>
 
-        {
-          playerActiveTrack && (
-            <Player
-              streamUrl={playerActiveTrack.src}
-              trackTitle={playerActiveTrack.name}
-              trackArtist={playerActiveTrack.artist}
-              preloadType="auto"
-            />
-          )
-        }
+        {playerActiveTrack.name && (
+          <Player
+            streamUrl={playerActiveTrack.streamUrl}
+            togglePlay={this.playerTogglePlay}
+            setPlayer={this.playerSetPlayer}
+            isPlaying={playerIsPlaying}
+            track={playerActiveTrack}
+            preloadType="auto"
+          />
+        )}
         
       </Fragment>
     );

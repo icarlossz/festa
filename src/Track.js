@@ -15,11 +15,20 @@ export const TrackLoader = () => (
   </ContentLoader>
 )
 
-export const Track = (props) => {return (
+export const Track = (props) => (
   <div className="track-item">
-    <div className="track-player">
-      <i onClick={playerTrackOn} className="fas fa-play-circle"></i>
-    </div>
+    {props.preview_url && (
+      <div
+        className={`track-player ${props.activeTrack === props.name && 'active'}`}
+        onClick={() => props.updateTrack({
+          name: props.name,
+          artist: props.artists[0].name,
+          streamUrl: props.preview_url,
+        })}
+      >
+        <i className="fas fa-play-circle" />
+      </div>
+    )}
 
     <p className="track-name">{props.name}</p>
 
@@ -27,6 +36,6 @@ export const Track = (props) => {return (
 
     <p className="track-artist">{props.artists[0].name}</p>
   </div>
-)}
+)
 
 export default Track

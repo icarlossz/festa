@@ -47,7 +47,8 @@
   transition: .3s;
 }
 
-.track-item:hover .track-player {
+.track-item:hover .track-player,
+.track-item.active .track-player {
   opacity: 1;
 }
 

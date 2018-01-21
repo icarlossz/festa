@@ -15,8 +15,9 @@
   align-items: center;
 }
 
-.player-button{
-  width: 36px;
+.player-button,
+.sb-soundplayer-icon {
+  width: 30px;
   background-color: transparent;
   color: tomato;
   border: 0;
